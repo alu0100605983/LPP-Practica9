@@ -31,7 +31,30 @@ module Question
 
       end
     end #describe SimpleChoice
-       
+
+ describe TrueFalse do   
+    before :each do
+        @p2=TrueFalse.new(
+          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero \n",
+          "b) Falso \n")      
+    end   
+    
+    describe "Probando Clase True False" do
+      it "Enuncia heredado" do
+        expect(@p2.question) == 'Es apropiado que una clase Tablero herede de una clase Juego \n'         
+      end
+      it "Probando respuesta correcta" do
+        expect(@p2.thetrue) == 'a) Verdadero \n'         
+      end 
+      it "Probando respuesta incorrecta" do
+        expect(@p2.thefalse) == 'b) Falso \n'         
+      end 
+      it "Probando metodo to_s" do
+        expect(@p2).to respond_to :to_s       
+      end       
+    end     
+  end
+    
 
   describe List do   
     before :each do
