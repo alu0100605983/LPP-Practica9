@@ -3,7 +3,7 @@ require 'question/simple_choice'
 require 'question/linked_list'
 
 module Question
-  class SimpleChoice
+
   
     describe Question::SimpleChoice do
        
@@ -30,101 +30,46 @@ module Question
         end
 
       end
-
-    end #describe
-
-  end #class
-
-  class Exam
-
-    describe Question::Exam do
-      before :each do
-        @vq = SimpleChoice.new(:text => '¿Cuanto es 2+5 ?', :right => 7, :distractor => [2,5,10])
-        @vnode = Node.new(@vq, nil)
-        @exam = List.new()
-      end
-
-    context "Node" do     
-      it "Debe existir un Nodo de la lista con sus datos y su siguiente" do         
-         expect(@vnode.thevalue)==@vq
-         expect(@vnode.thenext)==nil
-      end
-    end  
-
-    context "List" do     
-      it "Debe existir un Nodo de la lista con sus datos y su siguiente" do         
-         expect(@vnode.thevalue)==@vq
-         expect(@vnode.thenext)==nil
-      end
-
-      it "Se puede insertar un elemento" do
-        expect(@exam).to respond_to :lpush
-        expect(@exam.lpush(@vnode))== @vnode
-      end
-
-      it "Se puede extraer el primer elemento de la lista" do #insertamos y sacamos
-        expect(@exam).to respond_to :lpop
-        expect(@exam.lpush(@vnode))== @vnode
-        expect(@exam.lpop)== @vq
-      end
-
-      it "Se pueden insertar varios elementos" do #inserta el mismo elemento varias veces
-        expect(@exam).to respond_to :lpush
-        expect(@exam.lpush(@vnode))== @vnode
-        expect(@exam.lpush(@vnode))== @vnode
-      end
-
-      it "Debe existir una Lista con su cabeza" do
-        expect(@exam).to respond_to :head
-      end
-    end  #context list
-
-      it "Debe mostrarse correctamente formateado" do
+    end #describe SimpleChoice
        
-        pregunta = "¿Cuál es la salida del siguiente código Ruby?\nclass Xyz\n\sdef pots\n\s\s@nice\n\send\nend\n\nxyz = Xyz.new\np xyz.pots"
-        vart="nil"
-        var1="#<Xyz:0xa000208>"
-        var2="0"
-        var3="Ninguna de las anteriores"
-        texto = SimpleChoice.new(:text => pregunta, :right =>vart, :distractor => [var1,var2,var3])
-        nodo = Node.new(texto, nil)
-        @exam.lpush(nodo)
 
-        pregunta ="La siguiente definición de un hash en Ruby es válida:\nhash_raro = {\n\s[1, 2, 3] => Object.new(),\nHash.new => :toto\n}"
-        vart="Falso"
-        var1="Cierto"
-        texto = SimpleChoice.new(:text => pregunta, :right =>vart, :distractor => [var1])
-        nodo = Node.new(texto, nil)
-        @exam.lpush(nodo)
-
-        pregunta =%Q{¿Cuál es la salida del siguiente código Ruby?\nclass Array\n\sdef say_hi\n\s\s"HEY!"\n\send\nend\n p [1, "bob"].say_hi}
-        vart="HEY!"
-        var1="1"
-        var2="bob"
-        var3="Ninguna de las anteriores"
-        texto = SimpleChoice.new(:text => pregunta, :right =>vart, :distractor => [var1, var2, var3])
-        nodo = Node.new(texto, nil)
-        @exam.lpush(nodo)
-
-        pregunta ="¿Cuál es el tipo del objeto en el siguiente código Ruby?\nclass Objeto\nend"
-        vart="Una instancia de la clase Class"
-        var1="Una Constante"
-        var2="Un Objeto"
-        var3="Ninguna de las anteriores"
-        texto = SimpleChoice.new(:text => pregunta, :right =>vart, :distractor => [var1, var2, var3])
-        nodo = Node.new(texto, nil)
-        @exam.lpush(nodo)
-
-        pregunta ="Es apropiado que una clase Tablero herede de una clase Juego"
-        vart="Falso"
-        var1="Cierto"
-        texto = SimpleChoice.new(:text => pregunta, :right =>vart, :distractor => [var1])
-        nodo = Node.new(texto, nil)
-        @exam.lpush(nodo)
+  describe List do   
+    before :each do
+        @lista = List.new()
+        @nodo1 = Node.new(@p1, nil, nil)
+        @nodo2 = Node.new("pepe", nil, nil)    
+    end   
+    
+    describe "Lista doblemente enlazada" do
+      it "El nodo tiene cabeza" do
+        expect(@nodo1.thevalue) != nil
+      end
+      it "El nodo tiene siguiente" do
+        expect(@nodo1.thenext == nil)
+      end
+      it "El nodo tiene anterior" do
+        expect(@nodo1.theprev == nil)
       end
 
-    end #describe
-  end #class Exam
+      it "Se insertan nodos en la lista" do
+        @lista.lpush(@nodo1)
+        expect(@lista.head).to eq(@nodo1)
+      end
+      it "Se inserta un elemento por el principio" do
+        @lista.lpush(@nodo1)
+        @lista.lpush(@nodo2)
+        expect(@lista.head).to eq(@nodo2)
+      end
+
+      it "Se extrae el primer elemento de la lista" do
+        @lista.lpush(@nodo1)
+        @lista.lpush(@nodo2)
+        @lista.lpop
+        expect(@lista.head).to eq(@nodo1) 
+      end
+    
+    end #End describe List
+  end  
 
 end #module
 
