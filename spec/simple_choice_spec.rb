@@ -4,7 +4,6 @@ require 'question/linked_list'
 
 module Question
 
-
     describe Question::SimpleChoice do
        
       before :each do
