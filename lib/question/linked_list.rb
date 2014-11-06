@@ -1,32 +1,41 @@
 require 'question/simple_choice'
 require "question/simple_choice/version"
 
-Node = Struct.new(:thevalue, :thenext)
+Node = Struct.new(:thevalue, :thenext, :theprev)
 
 class List
-  attr_accessor :head
+  attr_accessor :head :tail
 
   def initialize
     @head = nil
-    @contador = 0
+    @tail = nil
   end
 
   def lpush(other)
     if @head == nil
       @head = other
-      @contador = @contador + 1;
+      @tail = other
     else
-     other.thenext = @head.thevalue
-     @head = other   
-     @contador = @contador + 1;  
+     other.thenext = @head
+     @head.theprev = other
+     other.theprev = nil
+     @head = other 
     end
-    @head #retornamos el nodo cabeza
   end
 
   def lpop
-    aux = @head
-    @head = aux.thenext
-    aux.thevalue #retorna el valor borrado
+    if(@head != @tail) # Hay más de un elemento en la lista
+      aux = @head
+      @head = @head.thenext
+      @head.theprev = nil
+      aux.thevalue
+    else (@head ==  @tail) && (@head != nil) # Hay un solo elemento en la lista
+      aux = @head
+      @head = nil
+      @tail = nil
+      aux.thevalue
+    else
+      puts "No hay elementos en la lista"
+    end
   end
-
 end
