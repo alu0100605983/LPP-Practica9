@@ -1,6 +1,3 @@
-require 'question/simple_choice'
-require "question/simple_choice/version"
-
 Node = Struct.new(:thevalue, :thenext, :theprev)
 
 class List

@@ -1,4 +1,4 @@
-require "question/simple_choice/version"
+
 
 module Question
   class SimpleChoice
