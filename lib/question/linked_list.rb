@@ -69,11 +69,10 @@ class TrueFalse < SimpleChoice
     
     def to_s
       opcion = @thetrue+[@thefasle]
-      s= ' '
+      s= "#{@question}\n"
       opcion.each do |opcion|
         s += %Q{#{opcion}\n}
       end
-      "#{@question}\n#{s}\n" #enviar pregunta y respuestas
+      s #enviar pregunta y respuestas
     end  
-    
   end #fin de VerdaderoFalso
