@@ -60,7 +60,9 @@ module Question
     before :each do
         @lista = List.new()
         @nodo1 = Node.new(@p1, nil, nil)
-        @nodo2 = Node.new("pepe", nil, nil)    
+        @nodo2 = Node.new("pepe", nil, nil) 
+        @nodo3 = Node.new("pepe1", nil, nil) 
+        @nodo4 = Node.new("pepe2", nil, nil)    
     end   
     
     describe "Lista doblemente enlazada" do
@@ -80,8 +82,10 @@ module Question
       end
       it "Se inserta un elemento por el principio" do
         @lista.lpush(@nodo1)
-        @lista.lpush(@nodo2)
-        expect(@lista.head).to eq(@nodo2)
+        @lista.lpush(@nodo2) 
+        @lista.lpush(@nodo3)
+        @lista.lpush(@nodo4)
+        expect(@lista.head).to eq(@nodo4)
       end
 
       it "Se extrae el primer elemento de la lista" do
