@@ -28,6 +28,10 @@ module Question
           expect(@p1).to respond_to :to_html
         end
 
+        it "Pertence a clase" do
+          expect(@p1.class) == SimpleChoice
+        end
+
       end
     end #describe SimpleChoice
 
