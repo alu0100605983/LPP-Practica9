@@ -5,9 +5,4 @@ rvm:
 - jruby-19mode # JRuby in 1.9 mode
 - rbx-18mode
 - rbx-19mode
-<<<<<<< HEAD
 - 1.8.7
-=======
-- 1.8.7
-
->>>>>>> 76662dd5e9583ca3095b618e8dc7a858aef3c27d
