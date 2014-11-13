@@ -44,6 +44,10 @@ require "question/simple_choice.rb"
         end
         valor
      end
+
+     def <=> (other)
+        @text <=> other.text 
+     end
     
   end #simplechoice
 

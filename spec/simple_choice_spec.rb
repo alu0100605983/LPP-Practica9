@@ -7,6 +7,8 @@ require 'question/linked_list'
        
       before :each do
         @p1 = SimpleChoice.new(:text => '¿Cuanto es 2+5 ?', :right => 7, :distractor => [2,5,10])
+        @p2 = SimpleChoice.new(:text => '¿Cuanto es 2+5 ?', :right => 7, :distractor => [2,5,10])
+        @p3 = SimpleChoice.new(:text => '¿Cuanto es 2+2+2 ?', :right => 7, :distractor => [2,5,10])
       end
       
       describe "Construccion de una pregunta" do
@@ -30,6 +32,20 @@ require 'question/linked_list'
         it "Pertence a clase" do
           expect(@p1.class) == SimpleChoice
         end
+
+        it "Probando comparacion igual" do
+          expect(@p1 == @p2).to eq(true)    
+        end  
+        it "Probando comparacion distinto" do
+          expect(@p2 == @p3).to eq(false)    
+        end    
+        it "Probando comparacion mayor" do
+          expect(@p3 < @p2).to eq(true)    
+        end
+        it "Probando comparacion menor" do
+          expect(@p3 > @p2).to eq(false)    
+        end
+
 
       end
     end #describe SimpleChoice
@@ -65,7 +81,7 @@ require 'question/linked_list'
 
       end   
       it "Probando comparacion igual" do
-        expect(@p2 == @p2).to eq(true)    
+        expect(@p2 == @p3).to eq(true)    
       end  
       it "Probando comparacion distinto" do
         expect(@p2 == @p4).to eq(false)    
