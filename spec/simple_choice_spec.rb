@@ -39,7 +39,16 @@ module Question
     before :each do
         @p2=TrueFalse.new(
           "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero \n",
-          "b) Falso \n")      
+          "b) Falso \n") 
+        @p3=TrueFalse.new(
+          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero \n",
+          "b) Falso \n")
+        @p4=TrueFalse.new(
+          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero! \n",
+          "b) False \n")   
+        @p5=TrueFalse.new(
+          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdader0 \n",
+          "b) False \n")        
     end   
     
     describe "Probando Clase True False" do
@@ -54,6 +63,7 @@ module Question
       end 
       it "Probando metodo to_s" do
         expect(@p2).to respond_to :to_s       
+
       end   
       it "Probando comparacion igual" do
         expect(@p2 == @p2).to eq(true)    
@@ -70,7 +80,6 @@ module Question
       it "Probando comparacion distinto" do
        expect(@p2 == @p5).to eq(false)    
       end
-
     end     
   end
     
@@ -113,9 +122,7 @@ module Question
         @lista.lpop
         expect(@lista.head).to eq(@nodo1) 
       end
-    
-    end #End describe List
-  end  
-
+    end #End describe
+  end  #End describe list
 end #module
 
