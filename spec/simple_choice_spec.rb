@@ -94,9 +94,11 @@ require 'question/linked_list'
 
   describe List do   
     before :each do
+        @p2 = SimpleChoice.new(:text => '¿Cuanto es 2+5 ?', :right => 7, :distractor => [2,5,10])
+        @p3 = SimpleChoice.new(:text => '¿Cuanto es 2+2+2 ?', :right => 7, :distractor => [2,5,10])
         @lista = List.new()
-        @nodo1 = Node.new(@p1, nil, nil)
-        @nodo2 = Node.new("pepe", nil, nil) 
+        @nodo1 = Node.new(@p2, nil, nil)
+        @nodo2 = Node.new(@p3, nil, nil) 
         @nodo3 = Node.new("pepe1", nil, nil) 
         @nodo4 = Node.new("pepe2", nil, nil)    
     end   
@@ -132,18 +134,17 @@ require 'question/linked_list'
       end
 
       #http://ruby-doc.org/core-2.1.4/Enumerable.html
-      it "Probando bucle vacio" do
-        @lista.each{|i| i}
+
+      it "Probando bucle con elementos" do
+        @lista.lpush(@nodo1)
+        @lista.lpush(@nodo2)
+        @lista.all?
+        expect(@lista.all?).to eq(true)
       end
       it "Probando bucle con elementos" do
         @lista.lpush(@nodo1)
         @lista.lpush(@nodo2)
-        @lista.each{|i| i}
-      end
-      it "Probando bucle con elementos" do
-        @lista.lpush(@nodo1)
-        @lista.lpush(@nodo2)
-        @lista.all? {|i| i.length <=3 }
+        expect(@lista.max).to eq(@nodo2.thevalue)
       end
     end #End describe
   end  #End describe list
