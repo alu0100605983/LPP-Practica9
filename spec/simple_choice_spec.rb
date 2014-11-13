@@ -147,6 +147,11 @@ require 'question/linked_list'
         @lista.lpush(@nodo2)
         @lista.each{|i| i}
       end
+      it "Probando bucle con elementos" do
+        @lista.lpush(@nodo1)
+        @lista.lpush(@nodo2)
+        @lista.all? {|i| i.length <=3 }
+      end
     end #End describe
   end  #End describe list
 
