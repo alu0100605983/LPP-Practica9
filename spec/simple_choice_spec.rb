@@ -59,11 +59,8 @@ require 'question/linked_list'
           "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero \n",
           "b) Falso \n")
         @p4=TrueFalse.new(
-          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero! \n",
-          "b) False \n")   
-        @p5=TrueFalse.new(
-          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdader0 \n",
-          "b) False \n")        
+          "Es apropiado que una clase Tablero herede de una clase Juegos \n", "a) Verdadero! \n",
+          "b) False \n")          
     end   
     
     describe "Probando Clase True False" do
@@ -78,7 +75,6 @@ require 'question/linked_list'
       end 
       it "Probando metodo to_s" do
         expect(@p2).to respond_to :to_s       
-
       end   
       it "Probando comparacion igual" do
         expect(@p2 == @p3).to eq(true)    
@@ -91,9 +87,6 @@ require 'question/linked_list'
       end
       it "Probando comparacion menor" do
         expect(@p4 < @p2).to eq(false)    
-      end
-      it "Probando comparacion distinto" do
-       expect(@p2 == @p5).to eq(false)    
       end
     end     
   end

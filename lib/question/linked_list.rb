@@ -84,8 +84,8 @@ class TrueFalse < Exam
     
     #Funcion Heredada y personalizada.
     def <=>(other)
-      #@thetrue.size <=> other.thetrue.size #http://ruby-doc.org/core-2.1.4/Comparable.html
-      @thetrue <=> other.thetrue #nil si no pueden ser comparados. -1 0 1
+      #http://ruby-doc.org/core-2.1.4/Comparable.html
+      @question <=> other.question #nil si no pueden ser comparados. -1 0 1
     end
 
 
