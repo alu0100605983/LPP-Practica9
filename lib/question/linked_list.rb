@@ -38,6 +38,15 @@ class List
       puts "No hay elementos en la lista"
     end
   end
+
+  def each
+
+    aux = @head
+    while aux != @tail do #recorremos la lista
+      yield aux.thevalue #envia el bloque de cada valor
+      aux=aux.thenext #anvanzamos
+    end
+  end
 end
 
 class Exam
