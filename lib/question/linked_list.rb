@@ -1,6 +1,9 @@
 Node = Struct.new(:thevalue, :thenext, :theprev)
 
 class List
+  
+  include Enumerable
+
   attr_accessor :head, :tail
 
   def initialize
@@ -39,11 +42,17 @@ end
 
 class SimpleChoice
     
+    include Comparable
+
     attr_accessor :question
     
     def initialize(question)
       @question = question
       raise ArgumentError, 'Specify :question' unless @question #retornamos el posible error o sino question
+    end
+
+    #Declaración función comparable que luego será heredada.
+    def <=>(other)
     end
 
   end 
@@ -64,6 +73,13 @@ class TrueFalse < SimpleChoice
       
     end
     
+    #Funcion Heredada y personalizada.
+    def <=>(other)
+      #@thetrue.size <=> other.thetrue.size #http://ruby-doc.org/core-2.1.4/Comparable.html
+      @thetrue <=> other.thetrue #nil si no pueden ser comparados. -1 0 1
+    end
+
+
     def to_s
       opcion = @thetrue+[@thefasle]
       s= "#{@question}\n"
