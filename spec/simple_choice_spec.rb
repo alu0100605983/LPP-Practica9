@@ -2,12 +2,11 @@ require 'spec/spec_helper'
 require 'question/simple_choice'
 require 'question/linked_list'
 
-module Question
 
-    describe Question::SimpleChoice do
+    describe SimpleChoice do
        
       before :each do
-        @p1 = Question::SimpleChoice.new(:text => '¿Cuanto es 2+5 ?', :right => 7, :distractor => [2,5,10])
+        @p1 = SimpleChoice.new(:text => '¿Cuanto es 2+5 ?', :right => 7, :distractor => [2,5,10])
       end
       
       describe "Construccion de una pregunta" do
@@ -124,5 +123,5 @@ module Question
       end
     end #End describe
   end  #End describe list
-end #module
+
 

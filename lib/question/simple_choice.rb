@@ -1,8 +1,9 @@
+require 'question/simple_choice'
+require "question/simple_choice/version"
+require "question/linked_list.rb"
+require "question/simple_choice.rb"
 
-
-module Question
-  class SimpleChoice
-
+  class SimpleChoice < Exam
     attr_accessor :text, :right, :distractor
     
     def initialize(args)
@@ -45,7 +46,6 @@ module Question
      end
     
   end #simplechoice
-end #question
 
 #no se ejecutara desde un require solo de consola
 if __FILE__ == $0 then

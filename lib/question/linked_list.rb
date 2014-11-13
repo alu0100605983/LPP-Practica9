@@ -40,7 +40,7 @@ class List
   end
 end
 
-class SimpleChoice
+class Exam
     
     include Comparable
 
@@ -57,7 +57,7 @@ class SimpleChoice
 
   end 
 
-class TrueFalse < SimpleChoice
+class TrueFalse < Exam
     
     attr_accessor :thetrue, :thefalse
     
