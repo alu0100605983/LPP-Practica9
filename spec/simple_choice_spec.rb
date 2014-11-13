@@ -137,6 +137,16 @@ require 'question/linked_list'
         @lista.lpop
         expect(@lista.head).to eq(@nodo1) 
       end
+
+      #http://ruby-doc.org/core-2.1.4/Enumerable.html
+      it "Probando bucle vacio" do
+        @lista.each{|i| i}
+      end
+      it "Probando bucle con elementos" do
+        @lista.lpush(@nodo1)
+        @lista.lpush(@nodo2)
+        @lista.each{|i| i}
+      end
     end #End describe
   end  #End describe list
 
