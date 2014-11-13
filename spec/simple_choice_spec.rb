@@ -54,7 +54,23 @@ module Question
       end 
       it "Probando metodo to_s" do
         expect(@p2).to respond_to :to_s       
-      end       
+      end   
+      it "Probando comparacion igual" do
+        expect(@p2 == @p2).to eq(true)    
+      end  
+      it "Probando comparacion distinto" do
+        expect(@p2 == @p4).to eq(false)    
+      end    
+      it "Probando comparacion mayor" do
+        expect(@p4 > @p2).to eq(true)    
+      end
+      it "Probando comparacion menor" do
+        expect(@p4 < @p2).to eq(false)    
+      end
+      it "Probando comparacion distinto" do
+       expect(@p2 == @p5).to eq(false)    
+      end
+
     end     
   end
     
