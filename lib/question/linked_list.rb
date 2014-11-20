@@ -1,10 +1,8 @@
-#require 'question/simple_choice'
-#require "question/simple_choice.rb"
-#require "question/simple_choice/version"
-#require "question/linked_list.rb"
-
+require 'open-uri'
 
 Node = Struct.new(:thevalue, :thenext, :theprev)
+
+
 
 class List
   
@@ -48,7 +46,7 @@ class List
   def each
 
     aux = @head
-    while aux != @tail do #recorremos la lista
+    while aux != nil do #recorremos la lista
       yield aux.thevalue #envia el bloque de cada valor
       aux=aux.thenext #anvanzamos
     end
@@ -71,6 +69,64 @@ class Exam
     end
 
   end 
+class SimpleChoice < Exam
+    attr_accessor :text, :right, :distractor
+    
+    def initialize(args)
+      @text = args[:text]
+      raise ArgumentError, 'Specify :text' unless @text
+      @right = args[:right]
+      raise ArgumentError, 'Specify :right' unless @right
+      @distractor = args[:distractor]
+      raise ArgumentError, 'Specify :distractor' unless @distractor
+    end
+    
+    
+    def to_html
+      @options = @distractor+[@right]
+      @options = @options.shuffle# baraja
+      s = ' '
+      @options.each do |options|
+       s += %Q{<input type = "radio" value= "#{options}" name = 0 > #{options}\n}
+      end
+      botton = %Q{<input type="button" value="Enviar">}
+      #html=<<-"HTML"
+      "#{@text}<br/>\n#{s}\n#{botton}\n"
+      #HTML
+    end
+
+    def mostrar_pregunta
+        "#{@text}"
+    end
+
+     def mostrar_respuestas
+        "#{@options}"
+     end
+
+     def to_s
+      valor = @distractor+[@right]
+      s= ' '
+      valor.each do |valor|
+        s += %Q{#{valor}\n}  
+      end
+      "#{@text}\n#{s}\n"
+    end 
+
+     def correcta(valor)
+      if valor == @right
+        return true
+      else
+        return false
+      end
+    end
+
+     def <=> (other)
+        @text <=> other.text 
+     end
+    
+  end #simplechoice
+
+#no se ejecutara desde un require solo de consola
 
 class TrueFalse < Exam
     
@@ -94,67 +150,83 @@ class TrueFalse < Exam
       @question <=> other.question #nil si no pueden ser comparados. -1 0 1
     end
 
+    def correcta(valor)
+      if valor == @thetrue
+        return true
+      else
+        return false
+      end
+    end
 
     def to_s
-      opcion = @thetrue+@thefalse
-      s= "#{@question}\n"
+      opcion = @thefalse+[@thetrue]
+      s= ' '
       opcion.each do |opcion|
         s += %Q{#{opcion}\n}
       end
-      s #enviar pregunta y respuestas
+      "#{@question}\n#{s}\n"
     end  
   end #fin de VerdaderoFalso
+
+class Vista
+  attr_accessor :lista
+
+  def initialize(lista)
+    @lista = lista
+  end
+
+  def examinar
+   @n_preg = 1
+   @n_fallos = 0
+   @n_aciertos = 0
+    aux = @lista
+    aux.each do |i|
+      puts "----------------------------------"
+      puts "#@n_preg .)"
+      puts "#{i.to_s}\n"
+      puts "Responda:"  
+      STDOUT.flush  
+      respuesta = gets.chomp
+      if i.correcta(respuesta) == true
+        puts "Respuesta Correcta"
+        @n_aciertos += 1
+      else
+        puts "Respues Incorrecta"
+        @n_fallos += 1
+      end
+      #puts "Siguiente Pregunta"
+      @n_preg += 1
+    end
+  end
+
+end
 
 class Examen
 
   @p1=TrueFalse.new(
-          "Es apropiado que una clase Tablero herede de una clase Juego \n", "Verdadero \n",
-          "Falso \n") 
+          "Es apropiado que una clase Tablero herede de una clase Juego", "Verdadero",
+          ["Falso \n"])
   @p2=TrueFalse.new(
-          "Es apropiado que una clase Tablero herede de una clase Juego \n", "Verdadero \n",
-          "Falso \n")
+          "Salida class de hash_raro = {[1, 2, 3] => Object.new(),Hash.new => :toto}", "Verdadero",
+          ["Falso \n"])
   @p3=TrueFalse.new(
-          "Es apropiado que una clase Tablero herede de una clase Juegos \n", "Verdadero! \n",
-          "False \n") 
+          "¿Esto es un examen?", "Si", ["No"])
+  @p4 = SimpleChoice.new(:text => '¿Cuanto es 2+5 ?', :right => "7", :distractor => [2,5,10])
 
    lista_exam = List.new()
 
    nodo_p1 = Node.new(@p1, nil, nil)
    nodo_p2 = Node.new(@p2, nil, nil)
    nodo_p3 = Node.new(@p3, nil, nil)
+   nodo_p4 = Node.new(@p4, nil, nil)
 
    lista_exam.lpush(nodo_p1)
    lista_exam.lpush(nodo_p2)
    lista_exam.lpush(nodo_p3)
+   lista_exam.lpush(nodo_p4)
 
-   @n_preg = 1
-   @n_fallos = 0
-   @n_aciertos = 0
-
-  lista_exam.each do |i|
-      print "#{@n_pregunta})"    
-      puts i
-      print "Introduzca la respuesta: "
-      STDOUT.flush
-      respuesta = gets.chomp
-      if respuesta == i.thetrue then
-        print("La respuesta es correcta")
-        @n_aciertos = @n_aciertos + 1
-      else
-        print("La respuesta es incorrecta")
-        @n_fallos = @n_fallos + 1
-      end
-      #Siguiente pegunta
-      @n_pregunta = n_pregunta + 1
-  end #end each
-
-  print "Numero de errores #{@n_fallos}"
-  print "Numero de aciertos #{@n_aciertos}"
-
-  if @n_aciertos >= @n_fallos
-    print "Ha aprobado el examen"
-  else
-    print "Lo sentimos, ha suspendidoñp,"
-  end 
+   call = Vista.new(lista_exam)
+   call.examinar
 
 end
+
