@@ -1,7 +1,7 @@
 require 'spec/spec_helper'
 require 'question/simple_choice'
 require 'question/linked_list'
-
+require 'open-uri'
 
     describe SimpleChoice do
        
@@ -140,11 +140,6 @@ require 'question/linked_list'
         @lista.lpush(@nodo2)
         @lista.all?
         expect(@lista.all?).to eq(true)
-      end
-      it "Probando bucle con elementos" do
-        @lista.lpush(@nodo1)
-        @lista.lpush(@nodo2)
-        expect(@lista.max).to eq(@nodo2.thevalue)
       end
     end #End describe
   end  #End describe list
