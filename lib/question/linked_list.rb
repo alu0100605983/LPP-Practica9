@@ -98,3 +98,4 @@ class TrueFalse < Exam
       s #enviar pregunta y respuestas
     end  
   end #fin de VerdaderoFalso
+
