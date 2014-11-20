@@ -1,7 +1,7 @@
-require 'question/simple_choice'
-require "question/simple_choice.rb"
-require "question/simple_choice/version"
-require "question/linked_list.rb"
+#require 'question/simple_choice'
+#require "question/simple_choice.rb"
+#require "question/simple_choice/version"
+#require "question/linked_list.rb"
 
 
 Node = Struct.new(:thevalue, :thenext, :theprev)
@@ -96,7 +96,7 @@ class TrueFalse < Exam
 
 
     def to_s
-      opcion = @thetrue+[@thefasle]
+      opcion = @thetrue+@thefalse
       s= "#{@question}\n"
       opcion.each do |opcion|
         s += %Q{#{opcion}\n}
@@ -108,14 +108,14 @@ class TrueFalse < Exam
 class Examen
 
   @p1=TrueFalse.new(
-          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero \n",
-          "b) Falso \n") 
+          "Es apropiado que una clase Tablero herede de una clase Juego \n", "Verdadero \n",
+          "Falso \n") 
   @p2=TrueFalse.new(
-          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero \n",
-          "b) Falso \n")
+          "Es apropiado que una clase Tablero herede de una clase Juego \n", "Verdadero \n",
+          "Falso \n")
   @p3=TrueFalse.new(
-          "Es apropiado que una clase Tablero herede de una clase Juegos \n", "a) Verdadero! \n",
-          "b) False \n") 
+          "Es apropiado que una clase Tablero herede de una clase Juegos \n", "Verdadero! \n",
+          "False \n") 
 
    lista_exam = List.new()
 
@@ -131,21 +131,30 @@ class Examen
    @n_fallos = 0
    @n_aciertos = 0
 
-   lista_exam.each do |i|
-    print "#{@n_pregunta})"    
-    puts i.to_s
-    print "Introduzca la respuesta: "
-    STDOUT.flush
-    respuesta = gets.chomp
-    if respuesta == i.thetrue then
-      print("La respuesta es correcta")
-      @n_aciertos = @n_aciertos + 1
-    else
-      print("La respuesta es incorrecta")
-      @n_fallos = @n_fallos + 1
-    end
-    #Siguiente pegunta
-    @n_pregunta = n_pregunta + 1
+  lista_exam.each do |i|
+      print "#{@n_pregunta})"    
+      puts i
+      print "Introduzca la respuesta: "
+      STDOUT.flush
+      respuesta = gets.chomp
+      if respuesta == i.thetrue then
+        print("La respuesta es correcta")
+        @n_aciertos = @n_aciertos + 1
+      else
+        print("La respuesta es incorrecta")
+        @n_fallos = @n_fallos + 1
+      end
+      #Siguiente pegunta
+      @n_pregunta = n_pregunta + 1
   end #end each
+
+  print "Numero de errores #{@n_fallos}"
+  print "Numero de aciertos #{@n_aciertos}"
+
+  if @n_aciertos >= @n_fallos
+    print "Ha aprobado el examen"
+  else
+    print "Lo sentimos, ha suspendidoñp,"
+  end 
 
 end
