@@ -1,3 +1,9 @@
+require 'question/simple_choice'
+require "question/simple_choice.rb"
+require "question/simple_choice/version"
+require "question/linked_list.rb"
+
+
 Node = Struct.new(:thevalue, :thenext, :theprev)
 
 class List
@@ -99,3 +105,47 @@ class TrueFalse < Exam
     end  
   end #fin de VerdaderoFalso
 
+class Examen
+
+  @p1=TrueFalse.new(
+          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero \n",
+          "b) Falso \n") 
+  @p2=TrueFalse.new(
+          "Es apropiado que una clase Tablero herede de una clase Juego \n", "a) Verdadero \n",
+          "b) Falso \n")
+  @p3=TrueFalse.new(
+          "Es apropiado que una clase Tablero herede de una clase Juegos \n", "a) Verdadero! \n",
+          "b) False \n") 
+
+   lista_exam = List.new()
+
+   nodo_p1 = Node.new(@p1, nil, nil)
+   nodo_p2 = Node.new(@p2, nil, nil)
+   nodo_p3 = Node.new(@p3, nil, nil)
+
+   lista_exam.lpush(nodo_p1)
+   lista_exam.lpush(nodo_p2)
+   lista_exam.lpush(nodo_p3)
+
+   @n_preg = 1
+   @n_fallos = 0
+   @n_aciertos = 0
+
+   lista_exam.each do |i|
+    print "#{@n_pregunta})"    
+    puts i.to_s
+    print "Introduzca la respuesta: "
+    STDOUT.flush
+    respuesta = gets.chomp
+    if respuesta == i.thetrue then
+      print("La respuesta es correcta")
+      @n_aciertos = @n_aciertos + 1
+    else
+      print("La respuesta es incorrecta")
+      @n_fallos = @n_fallos + 1
+    end
+    #Siguiente pegunta
+    @n_pregunta = n_pregunta + 1
+  end #end each
+
+end
